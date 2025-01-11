@@ -1,0 +1,78 @@
+
+        .button {
+            display: inline-block;
+            text-align: center;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {
+            /* background-color: darkgreen; */
+        }
+
+        .button:active {
+                    background-color: #3e8e41;
+                    /* アクティブ時の背景色 */
+                    /* アクティブ時のボックスシャドウ */
+                    transform: translateY(4px);
+                    /* アクティブ時の位置調整 */
+                }
+
+        header nav {
+            font-size: 20px;
+        }
+    
+        body {
+            width: 50%;
+            margin-left: 40px;
+        }
+    
+        .form{
+            background-color: rgb(228, 221, 221);
+        }
+
+        div {
+            padding: 10px;
+            font-size: 16px;
+        }
+    
+        .navbar-default {
+            background-color: #2FA6E9;
+            font-size: 20px;
+        }
+    
+        .navbar-header {            
+            font-size: 20px;
+                }
+        
+        .label-1 {
+            margin-left: 10px;
+        }
+    
+        .form-list input {
+            margin-left: 28px;
+        }
+    
+        .form-list textArea {
+            margin-left: 130px;
+        }
+    
+        .fieldset.submit {
+            margin-left: 30px;
+        }
+
+        /* labelはインライン属性なので、inline-block にして、幅を揃える */
+        .form-list label {
+            display: inline-block;
+            width: 100px;
+        /*備忘コメントの文字を上揃え */
+            vertical-align: top;
+            }
+
+        .form-submit {
+            margin-left: 30px;    
+            border-top: 1px solid #8ebcf1;
+                padding-top: 10px;
+        }
