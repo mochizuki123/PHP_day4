@@ -1,8 +1,15 @@
 
 <?php
 session_start();
+// logincheck(); //funcs.phpで定義したユーザのlog in 有無状態確認
+if(!isset($_SESSION["chk_ssid"]) || $_SESSION["chk_ssid"] != session_id()){ 
+exit("login error");
+}
+
+session_regenerate_id(true);
+$_SESSION["chk_ssid"] = session_id();
+
 require_once("funcs.php"); // funcs.phpを読み込んで関数を使えるようにする
-logincheck(); //funcs.phpで定義したユーザのlog in 有無状態確認
 
 //【重要】
 /**
@@ -14,6 +21,7 @@ $pdo = db_conn();
 $favorite = isset($_GET['favorite']) ? $_GET['favorite'] : '';
 
 //２．データ登録SQL作成
+
 if ($favorite === 'True') {
     $stmt = $pdo->prepare('SELECT * FROM gs_kadai4_table WHERE favorite = :favorite;');
     $stmt->bindValue(':favorite', $favorite, PDO::PARAM_STR);
