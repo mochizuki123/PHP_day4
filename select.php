@@ -1,7 +1,9 @@
 
 <?php
 session_start();
-// logincheck(); //funcs.phpで定義したユーザのlog in 有無状態確認
+require_once("funcs.php"); // funcs.phpを読み込んで関数を使えるようにする
+
+logincheck(); //funcs.phpで定義したユーザのlog in 有無状態確認
 if(!isset($_SESSION["chk_ssid"]) || $_SESSION["chk_ssid"] != session_id()){ 
 exit("login error");
 }
@@ -9,7 +11,6 @@ exit("login error");
 session_regenerate_id(true);
 $_SESSION["chk_ssid"] = session_id();
 
-require_once("funcs.php"); // funcs.phpを読み込んで関数を使えるようにする
 
 //【重要】
 /**
@@ -30,6 +31,7 @@ if ($favorite === 'True') {
 }
 
 $status = $stmt->execute();
+var_dump($_SESSION);
 
 //３．データ表示
 $view = '';

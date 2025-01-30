@@ -9,10 +9,10 @@ function h($str)
 function db_conn()
 {
     try {
-        $db_name = 'ym-deploy_php_kadai_day4';    //データベース名
-        $db_id   = 'ym-deploy_php_kadai_day4';      //アカウント名
-        $db_pw   = 'ym12345678';      //パスワード：XAMPPはパスワード無しに修正してください。
-        $db_host = 'mysql3104.db.sakura.ne.jp'; //DBホスト
+        $db_name = 'gs_db_class4_kadai';    //データベース名
+        $db_id   = 'root';      //アカウント名
+        $db_pw   = '';      //パスワード：XAMPPはパスワード無しに修正してください。
+        $db_host = 'localhost'; //DBホスト
         $pdo = new PDO('mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host, $db_id, $db_pw);
         return $pdo;
     } catch (PDOException $e) {

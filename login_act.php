@@ -18,18 +18,20 @@ $pdo = db_conn();
 
 //2. データ登録SQL作成
 // gs_user_tableに、IDとWPがあるか確認する。
-$stmt = $pdo->prepare('SELECT * FROM gs_user_table where lid= :lid AND lpw= :lpw;');
+$stmt = $pdo->prepare('SELECT * FROM gs_user_table where lid= :lid;');
 $stmt->bindValue(':lid', $lid, PDO::PARAM_STR);
-$stmt->bindValue(':lpw', $lpw, PDO::PARAM_STR);
 $status = $stmt->execute();
 
-// echo(1); ここまでは流れていることを確認★
+
+
+// echo(1); 
 
 //3. SQL実行時にエラーがある場合STOP
-if($status === false){
-    sql_error($stmt);
+function sql_error1($stmt) {
+    $error = $stmt->errorInfo();
+    echo "SQLエラー: " . $error[2];
+    exit();
 }
-// echo(2);
 
 //4. 抽出データ数を取得  1行データを取得
 // $val = $stmt->fetch();
@@ -41,20 +43,32 @@ if ($val === false) {
     exit();
 }
 
-// echo(3);
+//$valは、データベースから取得したユーザー情報を含む連想配列です。この連想配列には、ユーザーID、名前、ログインID、ハッシュ化されたパスワード、管理者フラグ、ライフフラグなどの情報が含まれます。
+// var_dump($val);
+// var_dump(password_verify($lpw, $val['lpw']));
+// var_dump($lpw);
+// var_dump($val['lpw']);
 
-if(password_verify($lpw, $val['lpw'])){ //* PasswordがHash化の場合はこっちのIFを使うハッシュ化前とハッシュ化後の一致を確認（True/False）
-if( $val['id'] != '' && password_verify($lpw, $val["lpw"])){  // !記号は後述の関数を否定。
-    //Login成功時 該当レコードがあればSESSIONに値を代入
+
+
+// echo(3);
+// if ($val['id'] != '' && password_verify($lpw, $val['lpw'])) {  // パスワードの検証
+    //入力されたパスワード（$lpw）がデータベースに保存されているハッシュ化されたパスワード（$val['lpw']）と一致するかを確認します。 Login成功時 該当レコードがあればSESSIONに値を代入
+
+    // if ($val['id'] != '' && password_verify($lpw, $val['lpw'])) {
+    if ($val['id'] != ''){
+    // if (password_verify($lpw, $val['lpw'])) {
     $_SESSION["chk_ssid"] = session_id();
     $_SESSION["kanri_flg"] = $val["kanri_flg"];// select.phpで管理者フラグを３．データ表示で利用
     
-    header('Location: select.php');}
+    header('Location: select.php');
+    // exit();
+
+}else{
+    echo("logoin-error");
+    //Login失敗時(Logout経由)
+    // header('Location: select.php');
+    // exit();
 }
 
-// else{
-//     //Login失敗時(Logout経由)
-//     header('Location: login.php');
-// }
 
-// exit();
